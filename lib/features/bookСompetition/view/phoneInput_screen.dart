@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PhoneInputScreen extends StatefulWidget {
-  const PhoneInputScreen({Key? key}) : super(key: key);
+  const PhoneInputScreen({super.key});
 
   @override
   _PhoneInputScreenState createState() => _PhoneInputScreenState();
@@ -45,7 +45,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                 const SizedBox(height: 16),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,
@@ -67,7 +67,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                 ),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,
@@ -131,12 +131,12 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                       'Сынакка катталуу менен, сиз биздин',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                       textAlign: TextAlign.center,
                     ),
                     // Убираем отступ между первым текстом и строкой с кнопкой
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -146,7 +146,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                           },
                           // Уменьшаем внутренние отступы кнопки
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 4),
                             minimumSize: Size.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -155,7 +155,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                             'Колдонуу шарттарыбыз',
                             style: GoogleFonts.montserrat(
                               fontSize: 12,
-                              color: Color(0xff005D67),
+                              color: const Color(0xff005D67),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -164,7 +164,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                           'жана',
                           style: GoogleFonts.montserrat(
                             fontSize: 12,
-                            color: Color(0xff005D67),
+                            color: const Color(0xff005D67),
                           ),
                         ),
                       ],
@@ -177,7 +177,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
                         padding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
@@ -185,18 +185,18 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                         'Купуялык саясатыбыздын шарттарына',
                         style: GoogleFonts.montserrat(
                           fontSize: 12,
-                          color: Color(0xff005D67),
+                          color: const Color(0xff005D67),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     // Уменьшаем отступ между кнопкой и последним текстом
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Text(
                       'макулдугуңузду бересиз.',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                     ),
                   ],
@@ -221,7 +221,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
               ],
@@ -234,7 +234,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
 }
 
 class SmsVerificationScreen extends StatelessWidget {
-  const SmsVerificationScreen({Key? key}) : super(key: key);
+  const SmsVerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +265,7 @@ class SmsVerificationScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,
@@ -287,7 +287,7 @@ class SmsVerificationScreen extends StatelessWidget {
                 ),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,
@@ -311,22 +311,22 @@ class SmsVerificationScreen extends StatelessWidget {
                 Text(
                   'Телефон номеринизге смс код жөнөтүлдү',
                   style: GoogleFonts.montserrat(
-                    color: Color(0xff005D67),
+                    color: const Color(0xff005D67),
                     fontSize: 12,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'СМС кодду жазыңыз',
                   style: GoogleFonts.montserrat(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff005D67),
+                    color: const Color(0xff005D67),
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SmsCodeInput(
                   onCompleted: (String code) {
                     // Verify SMS code
@@ -345,7 +345,7 @@ class SmsVerificationScreen extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
@@ -355,12 +355,12 @@ class SmsVerificationScreen extends StatelessWidget {
                       'Сынакка катталуу менен, сиз биздин',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                       textAlign: TextAlign.center,
                     ),
                     // Убираем отступ между первым текстом и строкой с кнопкой
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -370,7 +370,7 @@ class SmsVerificationScreen extends StatelessWidget {
                           },
                           // Уменьшаем внутренние отступы кнопки
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 4),
                             minimumSize: Size.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -379,7 +379,7 @@ class SmsVerificationScreen extends StatelessWidget {
                             'Колдонуу шарттарыбыз',
                             style: GoogleFonts.montserrat(
                               fontSize: 12,
-                              color: Color(0xff005D67),
+                              color: const Color(0xff005D67),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -388,7 +388,7 @@ class SmsVerificationScreen extends StatelessWidget {
                           'жана',
                           style: GoogleFonts.montserrat(
                             fontSize: 12,
-                            color: Color(0xff005D67),
+                            color: const Color(0xff005D67),
                           ),
                         ),
                       ],
@@ -401,7 +401,7 @@ class SmsVerificationScreen extends StatelessWidget {
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
                         padding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
@@ -409,7 +409,7 @@ class SmsVerificationScreen extends StatelessWidget {
                         'Купуялык саясатыбыздын шарттарына',
                         style: GoogleFonts.montserrat(
                           fontSize: 12,
-                          color: Color(0xff005D67),
+                          color: const Color(0xff005D67),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -420,7 +420,7 @@ class SmsVerificationScreen extends StatelessWidget {
                       'макулдугуңузду бересиз.',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                     ),
                   ],

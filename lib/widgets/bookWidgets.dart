@@ -10,12 +10,12 @@ class AppButton extends StatelessWidget {
   final double height;
 
   const AppButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.width = double.infinity,
     this.height = 56.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class AppInputField extends StatelessWidget {
   final InputDecoration? decoration;
 
   const AppInputField({
-    Key? key,
+    super.key,
     this.hintText,
     required this.controller,
     this.keyboardType = TextInputType.text,
@@ -81,7 +81,7 @@ class AppInputField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.decoration,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -99,17 +99,17 @@ class AppInputField extends StatelessWidget {
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: Color(0xFFA5156D), width: 1.0),
+          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: Color(0xFFA5156D), width: 1.0),
+          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 1.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: Color(0xFFA5156D), width: 2.0),
+          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 2.0),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
         filled: true,
         fillColor: Colors.white,
       ),
@@ -124,13 +124,13 @@ class AppDropdown extends StatelessWidget {
   final bool isExpanded;
 
   const AppDropdown({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.items,
     required this.value,
     required this.onChanged,
     this.isExpanded = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -178,10 +178,10 @@ class SmsCodeInput extends StatelessWidget {
   final int length;
 
   const SmsCodeInput({
-    Key? key,
+    super.key,
     required this.onCompleted,
     this.length = 6,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

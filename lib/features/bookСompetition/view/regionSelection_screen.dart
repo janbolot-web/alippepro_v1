@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/app_theme.dart';
 
 class RegionSelectionScreen extends StatefulWidget {
-  const RegionSelectionScreen({Key? key}) : super(key: key);
+  const RegionSelectionScreen({super.key});
 
   @override
   _RegionSelectionScreenState createState() => _RegionSelectionScreenState();
@@ -66,7 +66,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       const SizedBox(height: 16),
                       ShaderMask(
                         shaderCallback: (Rect bounds) {
-                          return LinearGradient(
+                          return const LinearGradient(
                             colors: [
                               Color(
                                   0xff1B434D), // розовый цвет (можно настроить)
@@ -89,7 +89,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       ),
                       ShaderMask(
                         shaderCallback: (Rect bounds) {
-                          return LinearGradient(
+                          return const LinearGradient(
                             colors: [
                               Color(
                                   0xff1B434D), // розовый цвет (можно настроить)
@@ -119,12 +119,12 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     'Өзүңүз тууралуу маалыматты так толтуруңуз',
                     style: GoogleFonts.montserrat(
                       fontSize: 12,
-                      color: Color(0xff005D67),
+                      color: const Color(0xff005D67),
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // Name input
                 AppInputField(
                   controller: _nameController,
@@ -134,23 +134,23 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 2.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 2.0),
                     ),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 // Region dropdown
                 GestureDetector(
                   onTap: () {
@@ -194,7 +194,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       },
                     ),
                   ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 // Book type dropdown
                 GestureDetector(
                   onTap: () {
@@ -238,7 +238,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       },
                     ),
                   ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 // Name input
                 AppInputField(
                   controller: _bookController,
@@ -248,23 +248,23 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide:
-                          BorderSide(color: Color(0xFFA5156D), width: 2.0),
+                          const BorderSide(color: Color(0xFFA5156D), width: 2.0),
                     ),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 AppButton(
                   text: 'Катталуу',
                   onPressed: () {
@@ -289,7 +289,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Column(
@@ -299,12 +299,12 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       'Сынакка катталуу менен, сиз биздин',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                       textAlign: TextAlign.center,
                     ),
                     // Убираем отступ между первым текстом и строкой с кнопкой
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -314,7 +314,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                           },
                           // Уменьшаем внутренние отступы кнопки
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 4),
                             minimumSize: Size.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -323,7 +323,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                             'Колдонуу шарттарыбыз',
                             style: GoogleFonts.montserrat(
                               fontSize: 12,
-                              color: Color(0xff005D67),
+                              color: const Color(0xff005D67),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -332,7 +332,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                           'жана',
                           style: GoogleFonts.montserrat(
                             fontSize: 12,
-                            color: Color(0xff005D67),
+                            color: const Color(0xff005D67),
                           ),
                         ),
                       ],
@@ -345,7 +345,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
                         padding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
@@ -353,7 +353,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                         'Купуялык саясатыбыздын шарттарына',
                         style: GoogleFonts.montserrat(
                           fontSize: 12,
-                          color: Color(0xff005D67),
+                          color: const Color(0xff005D67),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -364,7 +364,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       'макулдугуңузду бересиз.',
                       style: GoogleFonts.montserrat(
                         fontSize: 12,
-                        color: Color(0xff005D67),
+                        color: const Color(0xff005D67),
                       ),
                     ),
                   ],

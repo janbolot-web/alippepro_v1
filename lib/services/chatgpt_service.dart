@@ -87,9 +87,8 @@ saveResponse({
 
 Future<int> sendMessageToChatGPT(BuildContext context, String message,
     socketMethods, selectedQuestionTimer, userId) async {
-  const apiUrl =
-      'https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions';
-  const bearerToken = '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';
+  var apiUrl = Constants.uriChatgpt;
+  var bearerToken = Constants.chatgptKey;
   var header = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $bearerToken', // Добавляем токен

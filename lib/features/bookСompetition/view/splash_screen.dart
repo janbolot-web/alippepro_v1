@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff1B434D),
+                    color: const Color(0xff1B434D),
                   ),
                 ),
                 Text(
@@ -50,13 +50,13 @@ class WelcomeScreen extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff1B434D),
+                    color: const Color(0xff1B434D),
                   ),
                 ),
                 const SizedBox(height: 37),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,
@@ -78,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       colors: [
                         Color(0xff1B434D), // розовый цвет (можно настроить)
                         Color.fromARGB(255, 131, 3,

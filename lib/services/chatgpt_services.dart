@@ -77,15 +77,14 @@ class ChatgptService {
 
       // Make request to ChatGPT
       final chatGptResponse = await http.post(
-        Uri.parse(
-            'https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions'),
+        Uri.parse(Constants.uriChatgpt),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ghu_gJy9EnyGfc0Qn7jfPXgcZMAKKbHxn24QgISz',
+          'Authorization': 'Bearer ${Constants.chatgptKey}',
         },
         body: jsonEncode(requestBody),
       );
-      
+
       if (chatGptResponse.statusCode != 200) {
         throw Exception(
           'API returned status code ${chatGptResponse.statusCode}: ${chatGptResponse.body}',
