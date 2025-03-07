@@ -1,0 +1,1 @@
+export 'view/author_screen.dart';

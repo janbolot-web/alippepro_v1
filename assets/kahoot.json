@@ -1,0 +1,222 @@
+{
+    "title": "Математика - 7 класс",
+    "description": "Тест по математике для 7 класса",
+    "questions": [
+        {
+            "question": "Чему равна сумма углов треугольника?",
+            "choices": [
+                {
+                    "text": "180 градусов",
+                    "correct": true
+                },
+                {
+                    "text": "360 градусов",
+                    "correct": false
+                },
+                {
+                    "text": "90 градусов",
+                    "correct": false
+                },
+                {
+                    "text": "270 градусов",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Какое число является решением уравнения 2x + 5 = 15?",
+            "choices": [
+                {
+                    "text": "5",
+                    "correct": true
+                },
+                {
+                    "text": "10",
+                    "correct": false
+                },
+                {
+                    "text": "2.5",
+                    "correct": false
+                },
+                {
+                    "text": "3",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Какое из следующих чисел является простым?",
+            "choices": [
+                {
+                    "text": "12",
+                    "correct": false
+                },
+                {
+                    "text": "15",
+                    "correct": false
+                },
+                {
+                    "text": "17",
+                    "correct": true
+                },
+                {
+                    "text": "21",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Что такое периметр квадрата со стороной 4 см?",
+            "choices": [
+                {
+                    "text": "8 см",
+                    "correct": false
+                },
+                {
+                    "text": "12 см",
+                    "correct": false
+                },
+                {
+                    "text": "16 см",
+                    "correct": true
+                },
+                {
+                    "text": "20 см",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Найдите значение выражения 3^2 + 4^2.",
+            "choices": [
+                {
+                    "text": "25",
+                    "correct": true
+                },
+                {
+                    "text": "9",
+                    "correct": false
+                },
+                {
+                    "text": "16",
+                    "correct": false
+                },
+                {
+                    "text": "7",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Как называется многоугольник с шестью сторонами?",
+            "choices": [
+                {
+                    "text": "Треугольник",
+                    "correct": false
+                },
+                {
+                    "text": "Четырехугольник",
+                    "correct": false
+                },
+                {
+                    "text": "Пятиугольник",
+                    "correct": false
+                },
+                {
+                    "text": "Шестиугольник",
+                    "correct": true
+                }
+            ]
+        },
+        {
+            "question": "Найдите значение выражения 5x - 7 = 18.",
+            "choices": [
+                {
+                    "text": "5",
+                    "correct": true
+                },
+                {
+                    "text": "4",
+                    "correct": false
+                },
+                {
+                    "text": "6",
+                    "correct": false
+                },
+                {
+                    "text": "7",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Найдите площадь прямоугольника с длиной 8 см и шириной 5 см.",
+            "choices": [
+                {
+                    "text": "13 см²",
+                    "correct": false
+                },
+                {
+                    "text": "40 см²",
+                    "correct": true
+                },
+                {
+                    "text": "20 см²",
+                    "correct": false
+                },
+                {
+                    "text": "30 см²",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Чему равна сумма чисел 1/2 и 3/4?",
+            "choices": [
+                {
+                    "text": "1",
+                    "correct": false
+                },
+                {
+                    "text": "1 1/4",
+                    "correct": true
+                },
+                {
+                    "text": "1 1/2",
+                    "correct": false
+                },
+                {
+                    "text": "1/4",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "question": "Найдите корень квадратный из 81.",
+            "choices": [
+                {
+                    "text": "7",
+                    "correct": false
+                },
+                {
+                    "text": "8",
+                    "correct": false
+                },
+                {
+                    "text": "9",
+                    "correct": true
+                },
+                {
+                    "text": "10",
+                    "correct": false
+                }
+            ]
+        }
+    ],
+    "players":[{"_id":"66cccf472778a4beff1368f2",
+    "nickname":"Janbo",
+    "socketID":"nizZ9bqBBVAf3KshAAAB",
+    "points":"0",
+    "playerType":"X",
+    "correctAnswer":"0"}]
+}
