@@ -1,3 +1,4 @@
+import 'package:alippepro_v1/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,10 +22,9 @@ class _ChatGPTStreamPageState extends State<ChatGPTStreamPage> {
   String accumulatedResponse = "";
 
   Future<void> sendMessage(String message) async {
-    final url = Uri.parse(
-        "https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions");
+    final url = Uri.parse(Constants.uriChatgpt);
     final headers = {
-      'Authorization': 'Bearer ghu_flwC3qPtwVTXX6VkxSLaxqJX3xIU1W2QexTG',
+      'Authorization': 'Bearer ${Constants.chatgptKey}',
       'Content-Type': 'application/json',
     };
 
