@@ -2,7 +2,8 @@ class Constants {
   static String uri = 'http://103-195-7-40.cloud-xip.com:5001/api';
   static String uriDev = 'http://localhost:5001/api';
 
-  static String uriChatgpt = 'https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions';
+  static String uriChatgpt =
+      'https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions';
   static String chatgptKey =
       "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";
   static String chatgptKey2 =
