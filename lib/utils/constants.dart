@@ -1,5 +1,5 @@
 class Constants {
-  static String uri = 'http://103-195-7-40.cloud-xip.com:5001/api';
+  static String uri = 'http://localhost:5001/api';
   static String uriDev = 'http://localhost:5001/api';
 
   static String uriChatgpt =

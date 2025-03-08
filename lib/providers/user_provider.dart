@@ -9,7 +9,8 @@ class UserProvider extends ChangeNotifier {
       email: '',
       token: '',
       password: '',
-      courses: []);
+      courses: [],
+      phoneNumber: '');
 
   User get user => _user;
 

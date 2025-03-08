@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:alippepro_v1/features/admin/view/admin_screen.dart';
+import 'package:alippepro_v1/features/admin/view/admin_users_screen.dart';
 import 'package:alippepro_v1/features/ai/view/ai_screen.dart';
 import 'package:alippepro_v1/features/author/view/author_screen.dart';
 import 'package:alippepro_v1/features/book%D0%A1ompetition/view/splash_screen.dart';
@@ -12,6 +14,7 @@ import 'package:alippepro_v1/features/main/widgets/instructor.dart';
 import 'package:alippepro_v1/features/main/widgets/ishker.dart';
 import 'package:alippepro_v1/features/market/view/market_screen.dart';
 import 'package:alippepro_v1/features/podcast/view/podcast_screen.dart';
+import 'package:alippepro_v1/services/admin_service.dart';
 import 'package:alippepro_v1/services/auth_services.dart';
 import 'package:alippepro_v1/utils/local_storage_controller.dart';
 import 'package:flutter/material.dart';
@@ -536,6 +539,41 @@ class _MainScreenState extends State<MainScreen> {
                             },
                           ),
                         ),
+                        user?['roles'][0] == 'ADMIN'
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Colors
+                                      .white, // Любой цвет фона, который вам нужен
+                                  borderRadius: BorderRadius.circular(
+                                      10.0), // Опционально, для закругленных углов
+                                ),
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    'assets/img/author.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  title: Text('Управление пользователями',
+                                      style: GoogleFonts.rubik(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xff1B434D))),
+                                  subtitle: Text('Компания тууралуу маалымат',
+                                      style: GoogleFonts.rubik(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0xff1B434D))),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 12,
+                                  ),
+                                  onTap: () {
+                                    Get.to(
+                                        AdminDashboardScreen(token: 'token'));
+                                  },
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                   ),
