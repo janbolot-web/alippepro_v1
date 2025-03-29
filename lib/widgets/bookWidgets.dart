@@ -2,12 +2,14 @@
 import 'package:alippepro_v1/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double width;
   final double height;
+  final bool isLoading;
 
   const AppButton({
     super.key,
@@ -15,6 +17,7 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     this.width = double.infinity,
     this.height = 56.0,
+    this.isLoading = false,
   });
 
   @override
@@ -34,7 +37,7 @@ class AppButton extends StatelessWidget {
         ),
       ),
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -42,14 +45,23 @@ class AppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
+                ),
+              )
+            : Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }
@@ -93,29 +105,35 @@ class AppInputField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       onTap: onTap,
-      decoration: decoration ?? InputDecoration(
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 1.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 1.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(color: Color(0xFFA5156D), width: 2.0),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-        filled: true,
-        fillColor: Colors.white,
-      ),
+      decoration: decoration ??
+          InputDecoration(
+            hintText: hintText,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide:
+                  const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide:
+                  const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide:
+                  const BorderSide(color: Color(0xFFA5156D), width: 2.0),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+            filled: true,
+            fillColor: Colors.white,
+          ),
     );
   }
 }
+
 class AppDropdown extends StatelessWidget {
   final String hintText;
   final List<String> items;
@@ -173,78 +191,94 @@ class AppDropdown extends StatelessWidget {
   }
 }
 
-class SmsCodeInput extends StatelessWidget {
+class SmsCodeInput extends StatefulWidget {
   final Function(String) onCompleted;
-  final int length;
 
-  const SmsCodeInput({
-    super.key,
-    required this.onCompleted,
-    this.length = 6,
-  });
+  const SmsCodeInput({super.key, required this.onCompleted});
+
+  @override
+  State<SmsCodeInput> createState() => _SmsCodeInputState();
+}
+
+class _SmsCodeInputState extends State<SmsCodeInput> {
+  // Увеличиваем до 6 контроллеров
+  final List<TextEditingController> _controllers = List.generate(
+    6,
+    (_) => TextEditingController(),
+  );
+  final List<FocusNode> _focusNodes = List.generate(
+    6,
+    (_) => FocusNode(),
+  );
+
+  String get _code => _controllers.map((c) => c.text).join();
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    for (var node in _focusNodes) {
+      node.dispose();
+    }
+    super.dispose();
+  }
+
+  void _checkCodeCompletion() {
+    if (_controllers.every((controller) => controller.text.isNotEmpty)) {
+      widget.onCompleted(_code);
+      // Не очищаем поля и не скрываем их
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<FocusNode> focusNodes = List.generate(length, (index) => FocusNode());
-    List<TextEditingController> controllers =
-        List.generate(length, (index) => TextEditingController());
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(
-        length,
-        (index) => SizedBox(
-          width: 48,
-          height: 48,
-          child: TextFormField(
-            controller: controllers[index],
-            focusNode: focusNodes[index],
-            keyboardType: TextInputType.number,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 8, // горизонтальный отступ между полями
+      runSpacing: 10, // вертикальный отступ, если поля переносятся на новую строку
+      children: List.generate(6, (index) {
+        return SizedBox(
+          width: 48, // меньшая ширина для 6 полей
+          child: TextField(
+            controller: _controllers[index],
+            focusNode: _focusNodes[index],
             textAlign: TextAlign.center,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly,
-            ],
+            keyboardType: TextInputType.number,
+            maxLength: 1,
+            style: GoogleFonts.montserrat(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xff005D67),
+            ),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.zero,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: AppColors.inputBorder),
-              ),
+              counterText: '',
+              contentPadding: const EdgeInsets.symmetric(vertical: 10),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: AppColors.inputBorder),
+                borderSide: const BorderSide(color: Color(0xff005D67)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    const BorderSide(color: AppColors.primary, width: 2),
+                borderSide: const BorderSide(color: Color(0xff005D67), width: 2),
               ),
             ),
             onChanged: (value) {
-              if (value.isNotEmpty && index < length - 1) {
-                focusNodes[index].unfocus();
-                FocusScope.of(context).requestFocus(focusNodes[index + 1]);
+              if (value.isNotEmpty && index < 5) {
+                // Автоматический переход к следующему полю
+                _focusNodes[index + 1].requestFocus();
+              } else if (value.isEmpty && index > 0) {
+                // Переход к предыдущему полю при удалении
+                _focusNodes[index - 1].requestFocus();
               }
-
-              // Check if all fields are filled
-              String code = '';
-              bool isCompleted = true;
-              for (var controller in controllers) {
-                if (controller.text.isEmpty) {
-                  isCompleted = false;
-                  break;
-                }
-                code += controller.text;
-              }
-
-              if (isCompleted) {
-                onCompleted(code);
-              }
+              _checkCodeCompletion();
             },
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

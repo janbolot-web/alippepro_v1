@@ -367,7 +367,7 @@ class _PrepareLessonPlanState extends State<PrepareLessonPlan> {
                           fontSize: 16.0,
                         );
                       },
-                      child: const Text('Скопировать'),
+                      child: const Text('Көчүрүү'),
                     ),
                   ],
                 ),

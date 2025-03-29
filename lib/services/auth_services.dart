@@ -29,16 +29,14 @@ class AuthService {
 
       // Преобразуем roles в список, если это строка
       dynamic processedRoles = roles;
-      if (roles is String) {
-        // Если это JSON-строка, пробуем её распарсить
-        try {
-          processedRoles = jsonDecode(roles);
-        } catch (_) {
-          // Если не получилось распарсить, создаём одноэлементный список
-          processedRoles = [roles];
-        }
+      // Если это JSON-строка, пробуем её распарсить
+      try {
+        processedRoles = jsonDecode(roles);
+      } catch (_) {
+        // Если не получилось распарсить, создаём одноэлементный список
+        processedRoles = [roles];
       }
-
+    
       User user = User(
         id: '',
         name: name,

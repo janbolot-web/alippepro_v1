@@ -1,10 +1,14 @@
 // phone_input_screen.dart
+import 'dart:convert';
+
 import 'package:alippepro_v1/features/book%D0%A1ompetition/view/regionSelection_screen.dart';
+import 'package:alippepro_v1/services/competition_service.dart';
 import 'package:alippepro_v1/utils/app_theme.dart';
 import 'package:alippepro_v1/widgets/bookWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PhoneInputScreen extends StatefulWidget {
   const PhoneInputScreen({super.key});
@@ -15,6 +19,8 @@ class PhoneInputScreen extends StatefulWidget {
 
 class _PhoneInputScreenState extends State<PhoneInputScreen> {
   final TextEditingController _phoneController = TextEditingController();
+  bool _isLoading = false;
+  final ParticipantService _participantService = ParticipantService();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +106,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        '+ 996',
+                        '+996',
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
                           fontSize: 16,
@@ -176,8 +182,8 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                       },
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
@@ -203,23 +209,68 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
                 ),
                 const SizedBox(height: 70),
                 AppButton(
+                  isLoading: _isLoading,
                   text: 'Катталуу',
-                  onPressed: () {
-                    if (_phoneController.text.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SmsVerificationScreen(),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Телефон номерин киргизиңиз'),
-                        ),
-                      );
-                    }
-                  },
+                  onPressed: _isLoading
+                      ? () {}
+                      : () async {
+                          if (_phoneController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Телефон номерин киргизиңиз'),
+                              ),
+                            );
+                            return;
+                          }
+
+                          try {
+                            setState(() {
+                              _isLoading = true;
+                            });
+
+                            // Отправляем запрос на сервер для получения кода подтверждения
+                            var response = await _participantService
+                                .sendVerificationCode(_phoneController.text);
+                            setState(() {
+                              _isLoading = false;
+                            });
+
+                            print(response);
+
+                            if (response == 200 || response == 201) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SmsVerificationScreen(
+                                    phoneNumber: _phoneController.text,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print(response);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Пользователь с таким номером уже существует'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+
+                            // Переход к экрану проверки СМС
+                          } catch (e) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Ошибка: ${e.toString()}'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
                 ),
                 const SizedBox(
                   height: 70,
@@ -233,8 +284,23 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
   }
 }
 
-class SmsVerificationScreen extends StatelessWidget {
-  const SmsVerificationScreen({super.key});
+class SmsVerificationScreen extends StatefulWidget {
+  final String phoneNumber;
+
+  const SmsVerificationScreen({
+    super.key,
+    required this.phoneNumber,
+  });
+
+  @override
+  State<SmsVerificationScreen> createState() => _SmsVerificationScreenState();
+}
+
+class _SmsVerificationScreenState extends State<SmsVerificationScreen> {
+  final ParticipantService _participantService = ParticipantService();
+  String _verificationCode = '';
+  bool _isLoading = false;
+  bool _isVerified = false;
 
   @override
   Widget build(BuildContext context) {
@@ -329,21 +395,72 @@ class SmsVerificationScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 SmsCodeInput(
                   onCompleted: (String code) {
-                    // Verify SMS code
+                    setState(() {
+                      _verificationCode = code;
+                    });
                   },
                 ),
                 const Spacer(),
 
                 AppButton(
+                  isLoading: _isLoading,
                   text: 'Катталуу',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegionSelectionScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: _isLoading || _verificationCode.isEmpty
+                      ? () {}
+                      : () async {
+                          try {
+                            setState(() {
+                              _isLoading = true;
+                            });
+
+                            // Проверяем код подтверждения
+                            var response = await _participantService.verifyCode(
+                                widget.phoneNumber, _verificationCode);
+
+                            print('is ${response.toString()}');
+                            if (response.toString() == "200") {
+                              // Save phoneNumber in local storage
+                              var user = {
+                                "fullName": "",
+                                "region": "",
+                                "bookName": "",
+                                "additionalInfo": "",
+                                "phone": widget.phoneNumber,
+                                "status": ""
+                              };
+                              await SharedPreferences.getInstance()
+                                  .then((prefs) {
+                                prefs.setString('userBook', jsonEncode(user));
+                              });
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegionSelectionScreen(),
+                                ),
+                                (Route<dynamic> route) => route
+                                    .isFirst, // Сохранить только первый экран в стеке
+                              );
+                            }
+                            setState(() {
+                              _isLoading = false;
+                              _isVerified = true;
+                            });
+
+                            // Если верификация успешна, переходим к выбору региона
+                          } catch (e) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Код туура эмес. Кайра текшериңиз.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
                 ),
                 const SizedBox(
                   height: 30,
@@ -400,8 +517,8 @@ class SmsVerificationScreen extends StatelessWidget {
                       },
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),

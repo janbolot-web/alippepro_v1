@@ -52,12 +52,17 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
     "Музыка",
     "Астрономия",
     "Психология",
-    "Философия"
+    "Философия",
+    "Адабий окуу",
+    "Адам жана коом"
   ];
 
   // Example subjects
-  final List<String> languages = ['Кыргызча', 'Русский'];
+  final List<String> languages = ['Кыргызча', 'Русский', "English"];
   final List<String> classes = [
+    "0-2 жаш",
+    "2-4 жаш",
+    "4-6 жаш",
     '1 - класс',
     '2 - класс',
     '3 - класс',
@@ -126,8 +131,8 @@ class _LessonPlanScreenState extends State<LessonPlanScreen> {
     };
     await chatgptServices.clearLessonPlan(context: context);
 
-    var response = await chatgptServices.fetchChatGptResponse(context:context,
-        message: promptData, userId: user['id']);
+    var response = await chatgptServices.fetchChatGptResponse(
+        context: context, message: promptData, userId: user['id']);
 
     if (response == 200) {
       setState(() {

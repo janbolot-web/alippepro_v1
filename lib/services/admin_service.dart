@@ -34,8 +34,8 @@ class AdminService {
 
   Future<Map<String, dynamic>> grantAiAccess({
     required String userId,
-    int planPoint = 50,
-    int quizPoint = 20,
+    int planPoint = 120,
+    int quizPoint = 30,
     int expiresInDays = 30,
   }) async {
     final response = await http.post(
@@ -101,18 +101,23 @@ class AdminService {
   }
 
   Future<Map<String, dynamic>> getUserAiStatistics(String userId) async {
-    final response = await http.get(
-      Uri.parse('${Constants.uri}/admin/user-ai-statistics/$userId'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token,
-      },
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${Constants.uri}/admin/user-ai-statistics/$userId'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load user AI statistics: ${response.body}');
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Failed to load user AI statistics: ${response.body}');
+      }
+    } catch (e) {
+      print('Error fetching user statistics: $e');
+      throw Exception('Failed to load user AI statistics: $e');
     }
   }
 }

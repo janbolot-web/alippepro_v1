@@ -7,7 +7,6 @@ import 'package:alippepro_v1/models/book.dart';
 import 'package:alippepro_v1/services/book_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdf_render/pdf_render.dart';
 
 class EBookScreen extends StatefulWidget {
   const EBookScreen({super.key});
@@ -17,8 +16,6 @@ class EBookScreen extends StatefulWidget {
 }
 
 class _EBookScreenState extends State<EBookScreen> {
-  PdfDocument? _document;
-  PdfPageImage? _pageImage;
   final bool _loading = true;
   final TextEditingController _controller = TextEditingController();
 
@@ -122,7 +119,8 @@ class _EBookScreenState extends State<EBookScreen> {
                   icon: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 1, color: const Color(0xff054E45))),
+                        border: Border.all(
+                            width: 1, color: const Color(0xff054E45))),
                     child: Image.asset(
                       'assets/img/category-2.png',
                       width: 30,
@@ -136,8 +134,9 @@ class _EBookScreenState extends State<EBookScreen> {
                             : const Color(0xff054E45)),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        _selectedIndex == 0 ? const Color(0xff054E45) : Colors.white,
+                    backgroundColor: _selectedIndex == 0
+                        ? const Color(0xff054E45)
+                        : Colors.white,
                   ),
                 ),
                 GestureDetector(
@@ -151,8 +150,8 @@ class _EBookScreenState extends State<EBookScreen> {
                           ? const Color(0xff054E45)
                           : Colors.white,
                     ),
-                    padding:
-                        const EdgeInsets.only(left: 5, right: 15, top: 5, bottom: 5),
+                    padding: const EdgeInsets.only(
+                        left: 5, right: 15, top: 5, bottom: 5),
                     child: Row(
                       children: [
                         Container(

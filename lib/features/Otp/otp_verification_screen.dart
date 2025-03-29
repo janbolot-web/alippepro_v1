@@ -129,7 +129,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             children: [
               Text(
                 'Кодду кайрадан жөнөтүү :  $_seconds секунд',
-                style: GoogleFonts.montserrat(color: const Color(0xff005D67)),
+                style: GoogleFonts.montserrat(color: const Color.fromARGB(255, 5, 15, 17)),
               ),
               const SizedBox(
                 height: 26,

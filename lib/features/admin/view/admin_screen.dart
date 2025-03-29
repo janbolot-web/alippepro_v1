@@ -1,18 +1,16 @@
 // screens/admin_dashboard_screen.dart
-import 'package:alippepro_v1/features/admin/view/admin_statistics_screen.dart';
 import 'package:alippepro_v1/services/admin_service.dart';
 import 'package:flutter/material.dart';
 import 'admin_users_screen.dart';
 import 'admin_subscribers_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   final String token;
 
   const AdminDashboardScreen({
-    Key? key,
+    super.key,
     required this.token,
-  }) : super(key: key);
+  });
 
   @override
   _AdminDashboardScreenState createState() => _AdminDashboardScreenState();
@@ -45,15 +43,16 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       case 1:
         return AdminSubscribersScreen(adminService: adminService);
       case 2:
-        return AdminStatisticsScreen(adminService: adminService);
+        return _buildStatisticsTab();
+        // return AdminStatisticsScreen(adminService: adminService);
       default:
-        return Center(child: Text('Выберите раздел'));
+        return const Center(child: Text('Выберите раздел'));
     }
   }
 
   // Заглушка для вкладки статистики (можно расширить позже)
   Widget _buildStatisticsTab() {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

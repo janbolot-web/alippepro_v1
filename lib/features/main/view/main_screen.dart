@@ -4,17 +4,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:alippepro_v1/features/admin/view/admin_screen.dart';
-import 'package:alippepro_v1/features/admin/view/admin_users_screen.dart';
 import 'package:alippepro_v1/features/ai/view/ai_screen.dart';
 import 'package:alippepro_v1/features/author/view/author_screen.dart';
+import 'package:alippepro_v1/features/book%D0%A1ompetition/view/regionSelection_screen.dart';
 import 'package:alippepro_v1/features/book%D0%A1ompetition/view/splash_screen.dart';
+import 'package:alippepro_v1/features/book%D0%A1ompetition/view/users_screens.dart';
 import 'package:alippepro_v1/features/e-book/e-book.dart';
 import 'package:alippepro_v1/features/main/view/newDetail_screen.dart';
 import 'package:alippepro_v1/features/main/widgets/instructor.dart';
 import 'package:alippepro_v1/features/main/widgets/ishker.dart';
 import 'package:alippepro_v1/features/market/view/market_screen.dart';
 import 'package:alippepro_v1/features/podcast/view/podcast_screen.dart';
-import 'package:alippepro_v1/services/admin_service.dart';
 import 'package:alippepro_v1/services/auth_services.dart';
 import 'package:alippepro_v1/utils/local_storage_controller.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +23,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatefulWidget {
   final isLoading;
@@ -257,6 +258,46 @@ class _MainScreenState extends State<MainScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: GestureDetector(
+                                  onTap: () async {
+                                    final userBook =
+                                        await SharedPreferences.getInstance()
+                                            .then((prefs) =>
+                                                prefs.getString('userBook'));
+                                    print(userBook);
+                                    var user = userBook != null
+                                        ? jsonDecode(userBook)
+                                        : null;
+
+                                    if (user?['fullName'] != null &&
+                                        user?['fullName'].isNotEmpty) {
+                                      Get.to(ParticipantsScreen());
+                                    } else if (user?['phone'] != null &&
+                                        user?['phone'].isNotEmpty) {
+                                      Get.to(RegionSelectionScreen());
+                                    } else {
+                                      Get.to(const WelcomeScreen());
+                                    }
+                                    // final prefs =
+                                    //     await SharedPreferences.getInstance();
+
+                                    // await prefs.remove('userBook');
+                                    //     img: 'assets/img/instuc.png'));
+                                  },
+                                  child: SizedBox(
+                                    // width:
+                                    //     MediaQuery.of(context).size.width * 0.7,
+                                    child: Image.asset(
+                                      'assets/img/taimash.png',
+                                      height: 100,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                         context,
@@ -388,7 +429,7 @@ class _MainScreenState extends State<MainScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: const Color(0xff1B434D))),
-                            subtitle: Text('билим берүүдөгү маанилуу маселелер',
+                            subtitle: Text('билим берүүдөгү маанилүү маселелер',
                                 style: GoogleFonts.rubik(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -458,7 +499,7 @@ class _MainScreenState extends State<MainScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: const Color(0xff1B434D))),
-                            subtitle: Text('сиз издеген китептердин топтому',
+                            subtitle: Text('Ыңгайлуу баада буюмдар',
                                 style: GoogleFonts.rubik(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -507,37 +548,8 @@ class _MainScreenState extends State<MainScreen> {
                             },
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors
-                                .white, // Любой цвет фона, который вам нужен
-                            borderRadius: BorderRadius.circular(
-                                10.0), // Опционально, для закругленных углов
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              'assets/img/author.png',
-                              width: 40,
-                              height: 40,
-                            ),
-                            title: Text('Авторлор',
-                                style: GoogleFonts.rubik(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff1B434D))),
-                            subtitle: Text('Компания тууралуу маалымат',
-                                style: GoogleFonts.rubik(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff1B434D))),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 12,
-                            ),
-                            onTap: () {
-                              Get.to(const WelcomeScreen());
-                            },
-                          ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         user?['roles'][0] == 'ADMIN'
                             ? Container(
@@ -568,8 +580,8 @@ class _MainScreenState extends State<MainScreen> {
                                     size: 12,
                                   ),
                                   onTap: () {
-                                    Get.to(
-                                        AdminDashboardScreen(token: 'token'));
+                                    Get.to(const AdminDashboardScreen(
+                                        token: 'token'));
                                   },
                                 ),
                               )

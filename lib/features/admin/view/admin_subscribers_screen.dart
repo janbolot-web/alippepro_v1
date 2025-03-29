@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AdminSubscribersScreen extends StatefulWidget {
   final AdminService adminService;
 
-  const AdminSubscribersScreen({Key? key, required this.adminService}) : super(key: key);
+  const AdminSubscribersScreen({super.key, required this.adminService});
 
   @override
   _AdminSubscribersScreenState createState() => _AdminSubscribersScreenState();
@@ -153,10 +153,10 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Подписчики ИИ'),
+        title: const Text('Подписчики ИИ'),
         actions: [
           PopupMenuButton<String>(
-            icon: Icon(Icons.sort),
+            icon: const Icon(Icons.sort),
             onSelected: _changeSorting,
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
@@ -168,8 +168,8 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('По дате доступа'),
+                    const SizedBox(width: 8),
+                    const Text('По дате доступа'),
                   ],
                 ),
               ),
@@ -182,8 +182,8 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('По дате регистрации'),
+                    const SizedBox(width: 8),
+                    const Text('По дате регистрации'),
                   ],
                 ),
               ),
@@ -196,8 +196,8 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('По имени'),
+                    const SizedBox(width: 8),
+                    const Text('По имени'),
                   ],
                 ),
               ),
@@ -210,8 +210,8 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('По количеству Plan Points'),
+                    const SizedBox(width: 8),
+                    const Text('По количеству Plan Points'),
                   ],
                 ),
               ),
@@ -224,8 +224,8 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('По количеству Quiz Points'),
+                    const SizedBox(width: 8),
+                    const Text('По количеству Quiz Points'),
                   ],
                 ),
               ),
@@ -241,10 +241,10 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Поиск подписчиков',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     _searchController.clear();
                     _onSearchChanged('');
@@ -253,7 +253,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
               ),
               onChanged: (value) {
                 // Задержка поиска, чтобы избежать слишком частых запросов
-                Future.delayed(Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(milliseconds: 500), () {
                   if (value == _searchController.text) {
                     _onSearchChanged(value);
                   }
@@ -263,17 +263,17 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
           ),
           Expanded(
             child: isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : subscribers.isEmpty
-                    ? Center(child: Text('Подписчики не найдены'))
+                    ? const Center(child: Text('Подписчики не найдены'))
                     : ListView.builder(
                         controller: _scrollController,
                         itemCount: subscribers.length + (isLoadingMore ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index == subscribers.length) {
-                            return Center(
+                            return const Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: CircularProgressIndicator(),
                               ),
                             );
@@ -283,7 +283,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                           final aiSub = user.aiSubscription;
 
                           return Card(
-                            margin: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             child: ListTile(
                               leading: CircleAvatar(
@@ -309,7 +309,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                                     Text(
                                       'ИИ: План ${aiSub['planPoint']}, '
                                       'Тест ${aiSub['quizPoint']}',
-                                      style: TextStyle(color: Colors.green),
+                                      style: const TextStyle(color: Colors.green),
                                     ),
                                 ],
                               ),
@@ -318,7 +318,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Активен до:',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -327,7 +327,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                                   ),
                                   Text(
                                     _formatExpiryDate(aiSub),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -347,7 +347,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Всего: $totalUsers подписчиков | Страница $currentPage из $totalPages',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -365,25 +365,25 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Информация о подписке'),
+          title: const Text('Информация о подписке'),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Пользователь: ${user.name}', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Пользователь: ${user.name}', style: const TextStyle(fontWeight: FontWeight.bold)),
                 Text('ID: ${user.id}'),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text('Телефон: ${user.phoneNumber ?? "Не указан"}'),
                 Text('Email: ${user.email ?? "Не указан"}'),
-                SizedBox(height: 8),
-                Text('Подписка ИИ:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                const Text('Подписка ИИ:', style: TextStyle(fontWeight: FontWeight.bold)),
                 Text('Plan Points: ${aiSub['planPoint']}'),
                 Text('Quiz Points: ${aiSub['quizPoint']}'),
                 Text('Статус: ${aiSub['isActive'] ? "Активна" : "Неактивна"}'),
                 Text('Действует до: ${_formatExpiryDate(aiSub)}'),
-                SizedBox(height: 16),
-                Text('Действия:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 16),
+                const Text('Действия:', style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -394,11 +394,11 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                 // Предоставить дополнительный доступ
                 _showGrantAccessDialog(user);
               },
-              child: Text('Продлить доступ'),
+              child: const Text('Продлить доступ'),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Закрыть'),
+              child: const Text('Закрыть'),
             ),
           ],
         );
@@ -408,35 +408,35 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
 
   // Диалог для предоставления доступа (продления подписки)
   Future<void> _showGrantAccessDialog(User user) async {
-    int planPoints = 50;
-    int quizPoints = 20;
+    int planPoints = 120;
+    int quizPoints =30;
     int expiresInDays = 30;
 
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Продлить доступ к ИИ'),
+          title: const Text('Продлить доступ к ИИ'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Пользователь: ${user.name}'),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Plan Points'),
+                  decoration: const InputDecoration(labelText: 'Plan Points'),
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => planPoints = int.tryParse(value) ?? 50,
-                  controller: TextEditingController(text: '50'),
+                  onChanged: (value) => planPoints = int.tryParse(value) ?? 120,
+                  controller: TextEditingController(text: '120'),
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Quiz Points'),
+                  decoration: const InputDecoration(labelText: 'Quiz Points'),
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => quizPoints = int.tryParse(value) ?? 20,
-                  controller: TextEditingController(text: '20'),
+                  onChanged: (value) => quizPoints = int.tryParse(value) ??30,
+                  controller: TextEditingController(text: '30'),
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Срок действия (дней)'),
+                  decoration: const InputDecoration(labelText: 'Срок действия (дней)'),
                   keyboardType: TextInputType.number,
                   onChanged: (value) => expiresInDays = int.tryParse(value) ?? 30,
                   controller: TextEditingController(text: '30'),
@@ -447,7 +447,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             TextButton(
               onPressed: () async {
@@ -463,7 +463,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                   // Обновляем список пользователей
                   _loadSubscribers();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Доступ успешно продлен')),
+                    const SnackBar(content: Text('Доступ успешно продлен')),
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -471,7 +471,7 @@ class _AdminSubscribersScreenState extends State<AdminSubscribersScreen> {
                   );
                 }
               },
-              child: Text('Продлить'),
+              child: const Text('Продлить'),
             ),
           ],
         );

@@ -317,7 +317,7 @@ class _ProfileState extends State<Profile> {
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
         ),
-        initialIndex: 1,
+        initialIndex: 0,
         views: const [ContentPage(), MyFiles()],
         // OurCoureses(),
         onChange: (index) => print(index),

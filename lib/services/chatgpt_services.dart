@@ -45,16 +45,31 @@ class ChatgptService {
       var chatgptProvider =
           Provider.of<ChatgptProvider>(context, listen: false);
 
-      var language =
-          message['selectedLanguages'] == "Кыргызча" ? 'кыргыз' : "русском";
+      var language = message['selectedLanguages'] == "Кыргызча"
+          ? 'кыргыз'
+          : message['selectedLanguages'] == "Русский"
+              ? 'русском'
+              : "английском";
+
+      var selectedClass = message['selectedClass'];
+      if (language == 'русском') {
+        print(message['selectedClass'] == ('2-4 жаш'));
+        if (message['selectedClass'] == ('0-2 жаш')) {
+          selectedClass = '0-2 летних детей';
+        } else if (message['selectedClass'] == ('2-4 жаш')) {
+          selectedClass = '2-4 летних детей';
+        } else if (message['selectedClass'] == ('4-6 жаш')) {
+          selectedClass = '4-6 летних детей';
+        }
+      }
 
       Chatgpt chatgptmessage = language == 'русском'
           ? Chatgpt(
               response:
-                  "Создай подробный, интересный и оригинальный классический план урока с таблицами для ${message['selectedClass']} по предмету ${message['selectedSubject']} с использованием метода ${message['selectedMethod']} на тему ${message['subject']} на $language языке, только на $language языке, объемом 4-5 страниц, без лишних слов и текстов, только четкий и структурированный план.")
+                  "Создай подробный, интересный и оригинальный классический план урока с таблицами для $selectedClass по предмету ${message['selectedSubject']} с использованием метода ${message['selectedMethod']} на тему ${message['subject']} на $language языке, только на $language языке, объемом 4-5 страниц, без лишних слов и текстов, только четкий и структурированный план.")
           : Chatgpt(
               response:
-                  "${message['selectedClass']} үчүн ${message['selectedSubject']} сабагынан ${message['selectedMethod']} ыкмасын колдонуу менен ${message['subject']} темасында толук, кызыктуу жана оригиналдуу классикалык сабак планы түзүлсүн. Сабак планы $language тилинде гана болушу керек, 4-5 беттен турушу керек. Сабак планы так жана түзүмдөлгөн форматта берилсин: негизги бөлүмдөр ачык жана логикалык иретте болсун, таблицалар жана тизмектер колдонулсун, эгер алар маалыматты жакшыраак көрсөтсө, башкы бөлүмдөр жагымдуу жана көзгө көрүнүктүү форматта берилсин, калың шрифт, бөлүмдөр үчүн чоңураак шрифттер жана башка форматтоо колдонулсун, ар бир бөлүм так бөлүнүп, сапаттуу сабак планына ылайыктуу болсун. Бул сабак планы мектептерде колдонууга ылайыктуу болууга тийиш.");
+                  "$selectedClass үчүн ${message['selectedSubject']} сабагынан ${message['selectedMethod']} ыкмасын колдонуу менен ${message['subject']} темасында толук, кызыктуу жана оригиналдуу классикалык сабак планы түзүлсүн. Сабак планы $language тилинде гана болушу керек, 4-5 беттен турушу керек. Сабак планы так жана түзүмдөлгөн форматта берилсин: негизги бөлүмдөр ачык жана логикалык иретте болсун, таблицалар жана тизмектер колдонулсун, эгер алар маалыматты жакшыраак көрсөтсө, башкы бөлүмдөр жагымдуу жана көзгө көрүнүктүү форматта берилсин, калың шрифт, бөлүмдөр үчүн чоңураак шрифттер жана башка форматтоо колдонулсун, ар бир бөлүм так бөлүнүп, сапаттуу сабак планына ылайыктуу болсун. Бул сабак планы мектептерде колдонууга ылайыктуу болууга тийиш.");
 
       final hasValidSubscription = await checkSubscription(userId);
 
@@ -77,10 +92,11 @@ class ChatgptService {
 
       // Make request to ChatGPT
       final chatGptResponse = await http.post(
-        Uri.parse(Constants.uriChatgpt),
+        Uri.parse(
+            'https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${Constants.chatgptKey}',
+          'Authorization': 'Bearer ghu_gJy9EnyGfc0Qn7jfPXgcZMAKKbHxn24QgISz',
         },
         body: jsonEncode(requestBody),
       );

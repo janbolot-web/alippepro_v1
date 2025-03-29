@@ -1,0 +1,2 @@
+/Users/janbo/Documents/development/projects/alippepro_v1/android/app/.cxx/RelWithDebInfo/45f5sn5l/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/janbo/Documents/development/projects/alippepro_v1/android/app/.cxx/RelWithDebInfo/45f5sn5l/arm64-v8a/CMakeFiles/edit_cache.dir

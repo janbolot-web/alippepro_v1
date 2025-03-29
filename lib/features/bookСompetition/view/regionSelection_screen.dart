@@ -1,7 +1,13 @@
 // region_selection_screen.dart
+import 'dart:convert';
+
+import 'package:alippepro_v1/features/book%D0%A1ompetition/view/phoneInput_screen.dart';
+import 'package:alippepro_v1/features/book%D0%A1ompetition/view/users_screens.dart';
+import 'package:alippepro_v1/services/competition_service.dart';
 import 'package:alippepro_v1/widgets/bookWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/app_theme.dart';
 
@@ -15,8 +21,11 @@ class RegionSelectionScreen extends StatefulWidget {
 class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
   String? _selectedRegion;
   String? _selectedBookType;
+  bool _isLoading = false;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _bookController = TextEditingController();
+  final ParticipantService _participantService = ParticipantService();
+
   final List<String> _regions = [
     'Бишкек',
     'Чуй',
@@ -32,6 +41,88 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
   ];
   bool _isRegionExpanded = false;
   bool _isBookTypeExpanded = false;
+  ParticipantResponse? _response;
+
+  Future<void> _submitForm() async {
+    setState(() {
+      _isLoading = true;
+    });
+    var region = _selectedRegion;
+    switch (region) {
+      case "Бишкек":
+        region = "BISHKEK";
+        break;
+      case "Чуй":
+        region = "CHUY";
+        break;
+      case "Нарын":
+        region = "NARYN";
+        break;
+      case "Ош":
+        region = "OSH";
+        break;
+      case "Ысык-Көл":
+        region = "ISSYK_KUL";
+        break;
+      case "Талас":
+        region = "TALAS";
+        break;
+      case "Баткен":
+        region = "BATKEN";
+        break;
+      case "Жалал - Абад":
+        region = "JALAL_ABAD";
+        break;
+      default:
+        break;
+    }
+
+    try {
+      final userBook = await SharedPreferences.getInstance()
+          .then((prefs) => prefs.getString('userBook'));
+      var userData = jsonDecode(userBook!);
+
+      final request = ParticipantRequest(
+        fullName: _nameController.text,
+        region: region,
+        bookId: 1,
+        phone: "+996${userData['phone'].toString()}",
+        // additionalInfo: _addInfoController.text,
+      );
+
+      final response = await _participantService.createParticipant(request);
+
+      if (response == 200 || response == 201) {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ParticipantsScreen(),
+          ),
+          (Route<dynamic> route) =>
+              route.isFirst, // Сохранить только первый экран в стеке
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Ийгиликтүү катталдыңыз!'),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      print(e);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,21 +224,21 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     hintText: 'Аты жөнүңүз толугу менен',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 1.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 2.0),
                     ),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 14.0),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -166,7 +257,7 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     isExpanded: _isRegionExpanded,
                     onChanged: (value) {
                       setState(() {
-                        _selectedRegion = value;
+                        _selectedRegion = value!;
                         _isRegionExpanded = false;
                       });
                     },
@@ -247,26 +338,27 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                     hintText: 'Китептин коду',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 1.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 1.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Color(0xFFA5156D), width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFA5156D), width: 2.0),
                     ),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 14.0),
                   ),
                 ),
                 const Spacer(),
                 AppButton(
                   text: 'Катталуу',
+                  isLoading: _isLoading ? true : false,
                   onPressed: () {
                     // Complete registration process
                     if (_nameController.text.isNotEmpty &&
@@ -274,12 +366,14 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                         _bookController.text.isNotEmpty &&
                         _selectedBookType != null) {
                       // Navigate to home screen or show success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text('Ийгиликтүү катталдыңыз!'),
-                        ),
-                      );
+                      _submitForm();
+
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   const SnackBar(
+                      //     backgroundColor: Colors.green,
+                      //     content: Text('Ийгиликтүү катталдыңыз!'),
+                      //   ),
+                      // );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -344,8 +438,8 @@ class _RegionSelectionScreenState extends State<RegionSelectionScreen> {
                       },
                       // Уменьшаем внутренние отступы кнопки
                       style: TextButton.styleFrom(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),

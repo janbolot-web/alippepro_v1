@@ -8,8 +8,7 @@ import 'package:intl/intl.dart';
 class AdminStatisticsScreen extends StatefulWidget {
   final AdminService adminService;
 
-  const AdminStatisticsScreen({Key? key, required this.adminService})
-      : super(key: key);
+  const AdminStatisticsScreen({super.key, required this.adminService});
 
   @override
   _AdminStatisticsScreenState createState() => _AdminStatisticsScreenState();
@@ -64,10 +63,10 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Статистика использования ИИ'),
+        title: const Text('Статистика использования ИИ'),
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(text: 'Общая'),
             Tab(text: 'По времени'),
             Tab(text: 'По пользователям'),
@@ -76,25 +75,25 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: _loadStatistics,
             tooltip: 'Обновить данные',
           ),
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : errorMessage != null
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Ошибка загрузки данных: $errorMessage',
-                          style: TextStyle(color: Colors.red)),
-                      SizedBox(height: 16),
+                          style: const TextStyle(color: Colors.red)),
+                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: _loadStatistics,
-                        child: Text('Повторить'),
+                        child: const Text('Повторить'),
                       ),
                     ],
                   ),
@@ -116,13 +115,13 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
     final quizStats = statisticsData!['quizStats'];
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Обзор использования ИИ',
+          const Text('Обзор использования ИИ',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Статистика Plan vs Quiz
           Row(
@@ -136,7 +135,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: _buildStatCard(
                   title: 'Quiz (Тесты)',
@@ -149,13 +148,13 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ],
           ),
 
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // График распределения токенов
-          Text('Распределение токенов',
+          const Text('Распределение токенов',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
-          Container(
+          const SizedBox(height: 8),
+          SizedBox(
             height: 300,
             child: PieChart(
               PieChartData(
@@ -166,7 +165,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                         'План\n${numberFormat.format(planStats['totalTokens'])}',
                     color: Colors.blue,
                     radius: 100,
-                    titleStyle: TextStyle(
+                    titleStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -178,7 +177,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                         'Тест\n${numberFormat.format(quizStats['totalTokens'])}',
                     color: Colors.green,
                     radius: 100,
-                    titleStyle: TextStyle(
+                    titleStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -191,19 +190,19 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ),
           ),
 
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Общая статистика
           Card(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Общая статистика',
+                  const Text('Общая статистика',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _buildStatRow(
                       'Всего запросов:',
                       numberFormat.format(planStats['totalRequests'] +
@@ -259,23 +258,23 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
     }
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Распределение по времени',
+          const Text('Распределение по времени',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // График по часам
-          Text('Активность по часам',
+          const Text('Активность по часам',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
-          Container(
+          const SizedBox(height: 8),
+          SizedBox(
             height: 300,
             child: LineChart(
               LineChartData(
-                gridData: FlGridData(show: true),
+                gridData: const FlGridData(show: true),
                 titlesData: FlTitlesData(
                   show: true,
                   bottomTitles: AxisTitles(
@@ -288,7 +287,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
                               '${value.toInt()}:00',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
                               ),
@@ -306,7 +305,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       getTitlesWidget: (value, meta) {
                         return Text(
                           value.toInt().toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
                           ),
@@ -321,7 +320,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       getTitlesWidget: (value, meta) {
                         return Text(
                           '${value.toInt()}K',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.green,
                             fontSize: 12,
                           ),
@@ -329,7 +328,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       },
                     ),
                   ),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
                 ),
@@ -342,53 +341,53 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                     isCurved: true,
                     color: Colors.blue,
                     barWidth: 3,
-                    dotData: FlDotData(show: false),
+                    dotData: const FlDotData(show: false),
                   ),
                   LineChartBarData(
                     spots: hourlyTokenSpots,
                     isCurved: true,
                     color: Colors.green,
                     barWidth: 3,
-                    dotData: FlDotData(show: false),
+                    dotData: const FlDotData(show: false),
                   ),
                 ],
               ),
             ),
           ),
 
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
                   Container(width: 12, height: 12, color: Colors.blue),
-                  SizedBox(width: 4),
-                  Text('Запросы'),
+                  const SizedBox(width: 4),
+                  const Text('Запросы'),
                 ],
               ),
-              SizedBox(width: 24),
+              const SizedBox(width: 24),
               Row(
                 children: [
                   Container(width: 12, height: 12, color: Colors.green),
-                  SizedBox(width: 4),
-                  Text('Токены (тыс.)'),
+                  const SizedBox(width: 4),
+                  const Text('Токены (тыс.)'),
                 ],
               ),
             ],
           ),
 
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
 
           // Таблица с детальными данными по времени
-          Text('Детальная статистика по часам',
+          const Text('Детальная статистика по часам',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
 
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(
-              columns: [
+              columns: const [
                 DataColumn(label: Text('Дата')),
                 DataColumn(label: Text('Час')),
                 DataColumn(label: Text('Запросы')),
@@ -426,7 +425,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
 
     return Column(
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.all(16),
           child: Text('Топ пользователей по использованию ИИ',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -436,7 +435,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
         if (userStats.isNotEmpty)
           Container(
             height: 250,
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
@@ -451,7 +450,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
                       return BarTooltipItem(
                         '${userStats[groupIndex]['name']}\n',
-                        TextStyle(
+                        const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -459,7 +458,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                           TextSpan(
                             text:
                                 '${numberFormat.format(rod.toY.toInt())} запросов',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -488,16 +487,16 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                                 180, // 45 градусов в радианах
                             child: Text(
                               name.length > 8
-                                  ? name.substring(0, 8) + '...'
+                                  ? '${name.substring(0, 8)}...'
                                   : name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 10),
                             ),
                           );
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     ),
                   ),
@@ -508,7 +507,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       getTitlesWidget: (value, meta) {
                         return Text(
                           value.toInt().toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 10),
@@ -516,10 +515,10 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       },
                     ),
                   ),
-                  rightTitles: AxisTitles(
+                  rightTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
                 ),
@@ -543,7 +542,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                         // ),
                         width: 22,
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(6)),
+                            const BorderRadius.vertical(top: Radius.circular(6)),
                       )
                     ],
                   ),
@@ -552,7 +551,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ),
           ),
 
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
 
         // Таблица пользователей
         Expanded(
@@ -561,7 +560,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             itemBuilder: (context, index) {
               final user = userStats[index];
               return Card(
-                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: ListTile(
                   leading: CircleAvatar(
                     child: Text(
@@ -580,37 +579,85 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       Text(
                         'Запросы: ${numberFormat.format(user['totalRequests'])} • '
                         'Токены: ${numberFormat.format(user['totalTokens'])}',
-                        style: TextStyle(color: Colors.blue),
+                        style: const TextStyle(color: Colors.blue),
                       ),
                     ],
                   ),
+                  // В _buildUserStatsTab() метода AdminStatisticsScreen
                   trailing: IconButton(
-                    icon: Icon(Icons.bar_chart),
+                    icon: const Icon(Icons.bar_chart),
                     tooltip: 'Подробная статистика',
                     onPressed: () {
+                      try {
+                        // Безопасное извлечение userId
+                        final userId = user['_id'];
+
+                        // Проверка что userId существует и имеет правильный формат
+                        if (userId == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    'Ошибка: ID пользователя отсутствует')),
+                          );
+                          return;
+                        }
+
+                        // Преобразуем id в строку, если он ещё не строка
+                        final userIdString = userId.toString();
+
+                        print(
+                            'Переход к статистике пользователя с ID: $userIdString');
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminUserStatisticsScreen(
+                              adminService: widget.adminService,
+                              userId: userIdString,
+                              userName: user['name'] ?? 'Пользователь',
+                            ),
+                          ),
+                        );
+                      } catch (e) {
+                        print(
+                            'Ошибка при навигации к статистике пользователя: $e');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Ошибка при открытии статистики')),
+                        );
+                      }
+                    },
+                  ),
+                  onTap: () {
+                    try {
+                      final userId = user['_id'];
+                      if (userId == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content:
+                                  Text('Ошибка: ID пользователя отсутствует')),
+                        );
+                        return;
+                      }
+
+                      final userIdString = userId.toString();
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AdminUserStatisticsScreen(
                             adminService: widget.adminService,
-                            userId: user['_id'],
+                            userId: userIdString,
                             userName: user['name'] ?? 'Пользователь',
                           ),
                         ),
                       );
-                    },
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AdminUserStatisticsScreen(
-                          adminService: widget.adminService,
-                          userId: user['_id'],
-                          userName: user['name'] ?? 'Пользователь',
-                        ),
-                      ),
-                    );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Ошибка при открытии статистики')),
+                      );
+                    }
                   },
                 ),
               );
@@ -641,32 +688,32 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
         : 0.0;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Анализ затрат на GPT-4o',
+          const Text('Анализ затрат на GPT-4o',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Карточка с общей стоимостью
           Card(
             elevation: 4,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'Общая стоимость',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     currencyFormat.format(totalCost),
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 8),
+                  const Text(
                     'По тарифам OpenAI для GPT-4o',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
@@ -675,15 +722,15 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ),
           ),
 
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Распределение затрат
-          Text('Распределение затрат',
+          const Text('Распределение затрат',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // График распределения затрат
-          Container(
+          SizedBox(
             height: 250,
             child: PieChart(
               PieChartData(
@@ -694,7 +741,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                         'План\n${currencyFormat.format(double.parse(planStats['estimatedCost'].toString()))}',
                     color: Colors.blue,
                     radius: 100,
-                    titleStyle: TextStyle(
+                    titleStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -706,7 +753,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                         'Тест\n${currencyFormat.format(double.parse(quizStats['estimatedCost'].toString()))}',
                     color: Colors.green,
                     radius: 100,
-                    titleStyle: TextStyle(
+                    titleStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -719,19 +766,19 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ),
           ),
 
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Таблица с детальной разбивкой затрат
           Card(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Детальная разбивка затрат',
+                  const Text('Детальная разбивка затрат',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _buildStatRow(
                       'План (Чат):',
                       currencyFormat.format(
@@ -742,7 +789,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       'Токены:', numberFormat.format(planStats['totalTokens'])),
                   _buildDetailRow('Стоимость за токен:',
                       currencyFormat.format(planCostPerToken)),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _buildStatRow(
                       'Тест (Quiz):',
                       currencyFormat.format(
@@ -753,9 +800,9 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
                       'Токены:', numberFormat.format(quizStats['totalTokens'])),
                   _buildDetailRow('Стоимость за токен:',
                       currencyFormat.format(quizCostPerToken)),
-                  SizedBox(height: 16),
-                  Divider(),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  const SizedBox(height: 8),
                   _buildStatRow(
                     'ИТОГО:',
                     currencyFormat.format(totalCost),
@@ -766,12 +813,12 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
             ),
           ),
 
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Информация о тарифах OpenAI
           Card(
             color: Colors.blue.shade50,
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -810,19 +857,19 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
     return Card(
       elevation: 4,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildStatItem('Запросы:', numberFormat.format(requests), color),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             _buildStatItem('Токены:', numberFormat.format(tokens), color),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             _buildStatItem('Стоимость:',
                 currencyFormat.format(double.parse(cost.toString())), color),
           ],
@@ -849,7 +896,7 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
 
   Widget _buildStatRow(String label, String value, {bool isTotal = false}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -875,12 +922,12 @@ class _AdminStatisticsScreenState extends State<AdminStatisticsScreen>
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(left: 16, top: 4),
+      padding: const EdgeInsets.only(left: 16, top: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-          Text(value, style: TextStyle(fontSize: 13)),
+          Text(value, style: const TextStyle(fontSize: 13)),
         ],
       ),
     );

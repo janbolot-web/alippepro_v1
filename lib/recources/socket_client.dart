@@ -7,7 +7,7 @@ class SocketClient {
   static SocketClient? _instance;
 // https://websocket-1ukc.onrender.com'
   SocketClient._internal() {
-    socket = IO.io('http://103-195-7-40.cloud-xip.com:5001', <String, dynamic>{
+    socket = IO.io('http://ec2-54-211-138-169.compute-1.amazonaws.com:5001', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

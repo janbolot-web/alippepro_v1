@@ -1,5 +1,5 @@
 class Constants {
-  static String uri = 'http://localhost:5001/api';
+  static String uri = 'http://ec2-54-211-138-169.compute-1.amazonaws.com:5001/api';
   static String uriDev = 'http://localhost:5001/api';
 
   static String uriChatgpt =

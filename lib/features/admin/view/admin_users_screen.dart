@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 class AdminUsersScreen extends StatefulWidget {
   final AdminService adminService;
 
-  const AdminUsersScreen({Key? key, required this.adminService})
-      : super(key: key);
+  const AdminUsersScreen({super.key, required this.adminService});
 
   @override
   _AdminUsersScreenState createState() => _AdminUsersScreenState();
@@ -139,36 +138,36 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
   }
 
   Future<void> _showGrantAccessDialog(User user) async {
-    int planPoints = 50;
-    int quizPoints = 20;
+    int planPoints = 120;
+    int quizPoints = 30;
     int expiresInDays = 30;
 
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Предоставить доступ к ИИ'),
+          title: const Text('Предоставить доступ к ИИ'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Пользователь: ${user.name}'),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Plan Points'),
+                  decoration: const InputDecoration(labelText: 'Plan Points'),
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => planPoints = int.tryParse(value) ?? 50,
-                  controller: TextEditingController(text: '50'),
+                  onChanged: (value) => planPoints = int.tryParse(value) ?? 120,
+                  controller: TextEditingController(text: '120'),
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Quiz Points'),
+                  decoration: const InputDecoration(labelText: 'Quiz Points'),
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => quizPoints = int.tryParse(value) ?? 20,
-                  controller: TextEditingController(text: '20'),
+                  onChanged: (value) => quizPoints = int.tryParse(value) ?? 30,
+                  controller: TextEditingController(text: '30'),
                 ),
                 TextField(
                   decoration:
-                      InputDecoration(labelText: 'Срок действия (дней)'),
+                      const InputDecoration(labelText: 'Срок действия (дней)'),
                   keyboardType: TextInputType.number,
                   onChanged: (value) =>
                       expiresInDays = int.tryParse(value) ?? 30,
@@ -180,7 +179,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             TextButton(
               onPressed: () async {
@@ -197,7 +196,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                   // Обновляем список пользователей
                   _loadUsers();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Доступ успешно предоставлен')),
+                    const SnackBar(content: Text('Доступ успешно предоставлен')),
                   );
                 } catch (e) {
                   print(e);
@@ -206,7 +205,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                   );
                 }
               },
-              child: Text('Предоставить'),
+              child: const Text('Предоставить'),
             ),
           ],
         );
@@ -218,10 +217,10 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Управление пользователями'),
+        title: const Text('Управление пользователями'),
         actions: [
           PopupMenuButton<String>(
-            icon: Icon(Icons.sort),
+            icon: const Icon(Icons.sort),
             onSelected: _changeSorting,
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
@@ -233,8 +232,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('Дата регистрации'),
+                    const SizedBox(width: 8),
+                    const Text('Дата регистрации'),
                   ],
                 ),
               ),
@@ -247,8 +246,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                             ? Icons.arrow_upward
                             : Icons.arrow_downward)
                         : null),
-                    SizedBox(width: 8),
-                    Text('Имя'),
+                    const SizedBox(width: 8),
+                    const Text('Имя'),
                   ],
                 ),
               ),
@@ -264,10 +263,10 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Поиск пользователей',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     _searchController.clear();
                     _onSearchChanged('');
@@ -276,7 +275,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               ),
               onChanged: (value) {
                 // Задержка поиска, чтобы избежать слишком частых запросов
-                Future.delayed(Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(milliseconds: 500), () {
                   if (value == _searchController.text) {
                     _onSearchChanged(value);
                   }
@@ -286,17 +285,17 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           ),
           Expanded(
             child: isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : users.isEmpty
-                    ? Center(child: Text('Пользователи не найдены'))
+                    ? const Center(child: Text('Пользователи не найдены'))
                     : ListView.builder(
                         controller: _scrollController,
                         itemCount: users.length + (isLoadingMore ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index == users.length) {
-                            return Center(
+                            return const Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: CircularProgressIndicator(),
                               ),
                             );
@@ -306,7 +305,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                           final aiSub = user.aiSubscription;
 
                           return Card(
-                            margin: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             child: ListTile(
                               leading: CircleAvatar(
@@ -333,12 +332,12 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                                     Text(
                                       'ИИ: План ${aiSub['planPoint']}, '
                                       'Тест ${aiSub['quizPoint']}',
-                                      style: TextStyle(color: Colors.green),
+                                      style: const TextStyle(color: Colors.green),
                                     ),
                                 ],
                               ),
                               trailing: IconButton(
-                                icon: Icon(Icons.add_circle_outline),
+                                icon: const Icon(Icons.add_circle_outline),
                                 onPressed: () => _showGrantAccessDialog(user),
                                 tooltip: 'Предоставить доступ к ИИ',
                               ),
@@ -351,7 +350,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Всего: $totalUsers пользователей | Страница $currentPage из $totalPages',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],

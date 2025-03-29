@@ -3,7 +3,6 @@ import 'package:alippepro_v1/features/book%D0%A1ompetition/view/phoneInput_scree
 import 'package:alippepro_v1/utils/app_theme.dart';
 import 'package:alippepro_v1/widgets/bookWidgets.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:google_fonts/google_fonts.dart';
 

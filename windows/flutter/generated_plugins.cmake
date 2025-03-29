@@ -7,7 +7,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_inappwebview_windows
   permission_handler_windows
   printing
-  secure_application
   smart_auth
   url_launcher_windows
 )

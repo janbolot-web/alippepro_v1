@@ -87,7 +87,7 @@ saveResponse({
 
 Future<int> sendMessageToChatGPT(BuildContext context, String message,
     socketMethods, selectedQuestionTimer, userId) async {
-  var apiUrl = Constants.uriChatgpt;
+  var apiUrl = "https://workers-playground-shiny-haze-2f78jjjj.janbolotcode.workers.dev/v1/chat/completions";
   var bearerToken = Constants.chatgptKey;
   var header = {
     'Content-Type': 'application/json',
